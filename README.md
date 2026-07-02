@@ -4,6 +4,8 @@ Hands-on labs for the instructor-led course **Create Agents in Microsoft Copilot
 
 Across four labs you build one agent — the **HP Workplace Assistant** — an internal helper that answers employee questions across IT, HR, and travel/expense, runs a structured intake, and turns a meeting into action items posted to Teams. Each lab is self-contained: if you fall behind, start fresh at the next one.
 
+These labs teach Copilot Studio as covered in the official Microsoft Learn path: [Create agents in Microsoft Copilot Studio](https://learn.microsoft.com/en-us/training/paths/create-extend-custom-copilots-microsoft-copilot-studio/) — use it for self-paced study before or after class.
+
 ## The labs
 
 | Lab | Session | Time | You build |
