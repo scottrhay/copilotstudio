@@ -4,14 +4,15 @@
 **Session:** 1
 **Time:** ~30 minutes
 
-> **Lab Scenario.** Across the four labs you'll build one agent — the **HP Workplace Assistant** — an internal helper that answers employee questions across IT, HR, and travel/expense, and can take a simple action. This lab creates it and gives it its first knowledge source. Each lab stands on its own, so if you fall behind you can always start fresh here.
+> **Lab Scenario.** Across the labs you'll grow **one agent** — the **HP Workplace Assistant** — an internal helper that answers employee questions across IT, HR, and travel/expense, and takes real action. Each lab adds one capability: **create + ground** (here) → **a structured topic** (Lab 2) → **tools + a trigger** (Lab 3) → **a flow with logic** (Lab 4) → **connect a second agent** (optional Lab 5). Each lab also stands on its own, so if you fall behind you can start fresh at the top of any lab.
+> **Why Copilot Studio and not Agent Builder?** This first step is deliberately simple — a grounded Q&A agent that, honestly, you *could* build in M365 Agent Builder. You're here for what comes next: a **structured intake topic** with entities and a branch (Lab 2), **tools and a trigger** so it acts on its own (Lab 3), **a flow with real logic** (Lab 4), and **connecting a second agent** (optional Lab 5). None of those are possible in Agent Builder. Even in this lab you'll use one Studio-only capability: the **activity map** in Step 4, which shows you *how* the agent reached its answer.
 
 ## What you'll do
 Create an agent from a plain-English prompt, give it a name and instructions, add one knowledge source, test it, and publish it to a demo website.
 
 ## Before you start
 - Sign in to Copilot Studio at **`https://copilotstudio.microsoft.com/`** — you'll be in **HP's default environment**. No setup needed.
-- Download [`HP_IT_Support_FAQ.docx`](../../Files/HP_IT_Support_FAQ.docx) from this repo's **Files** folder to your computer.
+- Download **`HP_IT_Support_FAQ.docx`** from the class files location to your computer.
 - If several of you share the environment, **put your initials in front of the agent name** (e.g., `JS HP Workplace Assistant`) so they don't clash.
 - Stay on the **current** Copilot Studio experience (not the preview) so the steps match.
 
@@ -47,14 +48,15 @@ Create an agent from a plain-English prompt, give it a name and instructions, ad
    - **Title:** `Reset password` — **Prompt:** `How do I reset my password?` — **Save**.
 
 ### Step 3 — Add a knowledge source (6 min)
-1. Select the **Knowledge** tab → **+ Add knowledge**.
-2. In **Upload file**, browse to **`HP_IT_Support_FAQ.docx`** and select **Add to agent**.
-3. Give it a clear description (this helps the agent decide when to use it):
+1. Select the **Knowledge** tab → **+ Add knowledge** → **Upload file**.
+2. Browse to **`HP_IT_Support_FAQ.docx`** (drag-and-drop, or browse to it).
+3. **In the upload dialog, before you add it,** give it a clear **Name** and a **detailed Description** — the description is what the agent reads to decide when to use this source, so be specific:
    - **Name:** `IT Support FAQ`
    - **Description:** `Answers about passwords, MFA, VPN, devices, software, and how to log IT tickets.`
-4. The file shows **Indexing** → **Ready**. *Indexing can take a few minutes — keep going and test at the end.*
+4. Select **Add to agent**. *(The description isn't shown on the Knowledge list afterward — to change it later, use the source's **⋮ → Edit**.)*
+5. The file shows **Indexing** → **Ready**. *Indexing can take a few minutes — keep going and test at the end.*
 
-### Step 4 — Test it (5 min)
+### Step 4 — Test it, and watch *how* it answers (5 min)
 1. Open the **Test** pane (top-right). Select the ellipsis (**…**) next to **{x}** and set **Show activity map** to **On**.
 2. Try:
    ```
@@ -63,7 +65,8 @@ Create an agent from a plain-English prompt, give it a name and instructions, ad
    ```
    How do I request a new laptop?
    ```
-   Watch the activity map show the **IT Support FAQ** grounding the answers. *(If answers are empty, the file is still indexing — wait a minute and retry.)*
+3. **Read the activity map — this is the Copilot Studio difference.** For each answer it shows *what the agent did*: which knowledge source it searched (the **IT Support FAQ**) and that it grounded the reply on that file. Agent Builder just hands you an answer; Studio shows you the reasoning, so you can trust it — and debug it. *(If answers are empty, the file is still indexing — wait a minute and retry.)*
+4. Now ask something outside the FAQ — e.g., `How much vacation do I get?` The activity map shows the **IT Support FAQ didn't match** (that's an HR question — you add HR in Lab 3). Seeing *why* an answer is thin is the debugging view Agent Builder doesn't give you.
 
 ### Step 5 — Publish to a demo website (5 min)
 1. Select **Publish** → **Publish**.
@@ -100,21 +103,4 @@ Copilot Studio can test your agent *for* you: it generates test questions from y
 Templates are the fastest way to start a real agent — and this one shows you a second orchestration style.
 1. **Agents** → under **Start with an agent template**, select **Safe Travels** → **Create**.
 2. On **Overview**, read its instructions; on **Knowledge**, note it grounds on a *public website* (you'll add one of those in Lab 3's stretch).
-3. Open **Settings** and look at **Orchestration**: this template uses **classic** orchestration (topics decide everything), while your Workplace Assistant uses **generative** orchestration (the agent decides using instructions, knowledge, and tools). Close without changing anything.
-4. **Topics** tab → **System** filter → open **Conversation Start** — this is where a welcome message actually lives.
-5. In the **Test** pane, toggle **Track between topics** to **On**. Say `Hello`, then ask `What is Copilot Studio?` — watch the **Greeting** topic fire, then the **Fallback** topic catch the question it can't answer.
-6. When done, delete the template agent (**Agents** list → **…** → **Delete**) so the shared environment stays clean.
-
----
-
-## ✅ Done — and how to reuse it
-You created the HP Workplace Assistant, shaped its behavior, grounded it on a real document, and published it. **This is a working starting point** — back at your desk you can add your team's real documents and publish it to Teams for your group.
-
-| Check | |
-|---|---|
-| Agent named **HP Workplace Assistant** with custom instructions | ☐ |
-| **IT Support FAQ** added as knowledge (Ready) | ☐ |
-| Answered an IT question in the **Test** pane | ☐ |
-| Published to the **Demo website** | ☐ |
-
-*Next lab: give the assistant a structured way to log an IT request.*
+3. Open **Settings** and look at **Orchestration**: this temp

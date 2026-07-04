@@ -1,10 +1,12 @@
-# Lab 4 — Turn a meeting into tasks
+# Lab 4B (optional) — Turn a meeting into tasks
 
 **Course:** PL-7008 — Create agents in Microsoft Copilot Studio
 **Session:** 2
-**Time:** ~30 minutes
+**Time:** ~30 minutes — **optional alternative to Lab 4**
 
-> **Lab Scenario.** The most common AI ask there is — every meeting ends with action items that get lost. In this capstone, your HP Workplace Assistant **reads a meeting transcript, pulls out the action items (who / what / by when), shows them to you, and posts the list to Teams** with a workflow tool. Two skills in one lab: generative extraction from messy text, and an agent taking a real action.
+> **This is an alternative to Lab 4.** It teaches the **same flow skills** — a multi-step flow with a **condition** — in a different scenario. Run it *instead of* Lab 4 if a meeting-notes example lands better with your group, or *in addition* if you're ahead. Lab 4 (Log and Route an IT ticket) stays on the IT-support through-line; this one branches into meetings.
+
+> **Lab Scenario.** A **flow** is the richest kind of tool — real logic and multiple actions, run by the agent. Here your HP Workplace Assistant **reads a meeting transcript, pulls out the action items, and calls a flow** that posts them to Teams **and branches:** if the meeting has an urgent item, it *also* flags leadership. Two skills: generative extraction from messy text, and a multi-step flow with a **condition** — pure Copilot Studio.
 
 ## Quick start (so everyone can begin)
 - **If you have your agent:** open **HP Workplace Assistant**.
@@ -32,7 +34,7 @@
 
 ### Step 2 — Test the extraction (6 min)
 1. Open the **Test** pane → **Start new test session** (**+**).
-2. Enter `Turn these meeting notes into action items`, then paste the sample transcript below (or open [`HP_Sample_Meeting_Transcript.docx`](../../Files/HP_Sample_Meeting_Transcript.docx) from this repo's **Files** folder and copy it):
+2. Enter `Turn these meeting notes into action items`, then paste the sample transcript below (or open **`HP_Sample_Meeting_Transcript.docx`** and copy it):
 
    ```
    HP — Q3 New-Hire Onboarding Sync (June 26, 2026)
@@ -52,33 +54,32 @@
 
 > Model output varies. If owners or dates are missed, say `Include the owner and due date for each item` and it will refine.
 
-### Step 3 — Build the "Post Tasks to Teams" workflow (10 min)
+### Step 3 — Build the "Post Tasks to Teams" flow — with logic (12 min)
+A good flow does more than one thing. Yours **always posts the tasks**, and **also flags leadership when a meeting has an urgent item** — a **condition**, which is what makes flows powerful.
 1. Left navigation → **Tools** → **+ New tool** → **Agent flow** tile.
 2. Confirm the **When an agent calls the flow** trigger and **Respond to the agent** action are present.
-3. Select the **trigger** → **+ Add an input** → **Text**. Set **Input** = `Task List`.
-4. **Save draft**.
-5. **Overview** tab → **Details** → **Edit**: **Flow name** = `Post Tasks to Teams`; **Description** = `Post a list of meeting action items to a Teams channel.` → **Save**.
-6. **Designer** tab → **+** between the steps → search `Teams` → **Microsoft Teams** → **Post message in a chat or channel** → **Sign in** and approve.
+3. Select the **trigger** → **+ Add an input** → **Text** named `Task List`. Add a **second** input → **Text** named `Urgent` (the agent sets this to `Yes` or `No`). **Save draft**.
+4. **Overview** tab → **Details** → **Edit**: **Flow name** `Post Tasks to Teams`; **Description** `Post meeting action items to Teams, and flag leadership when a meeting has an urgent item.` → **Save**.
+5. **Designer** tab → **+** after the trigger → search `Teams` → **Microsoft Teams → Post message in a chat or channel** → **Sign in** and approve.
    > Popup blocked? Click the blocked-popup icon in the address bar and allow pop-ups from `copilotstudio.microsoft.com`.
-7. **Post as:** `Flow bot` · **Post in:** `Channel` · pick a **Team** and **Channel** you belong to.
-8. **Message:** use **Dynamic content** → **Task List**.
-9. Select **Respond to the agent** → **+ Add an output** → **Text**, name `Result`, value = **Dynamic content** → the **Message link**.
+6. **Post as** `Flow bot` · **Post in** `Channel` · pick a **Team** and **Channel** you belong to · **Message:** **Dynamic content** → **Task List**.
+7. **Add the logic:** **+** below the Teams post → **Control → Condition**. Set it: **Urgent** *(dynamic content)* **is equal to** `Yes`.
+8. On the **If yes** branch → **+** → **Microsoft Teams → Post message in a chat or channel** → same team/channel → **Message:** `⚠️ This meeting has an urgent action item — please review.` Leave **If no** empty.
+9. Select **Respond to the agent** → **+ Add an output** → **Text** named `Result` = **Dynamic content** → the first post's **Message link**.
 10. **Save draft** → **Publish**. Confirm the tool shows **Ready**.
 
 ### Step 4 — Give the tool to the assistant (3 min)
 1. **Agents** → open **HP Workplace Assistant** → **Tools** tab → **+ Add a tool** → **Workflows** filter → **Post Tasks to Teams** → **Add and configure**.
-2. **Inputs → Fill using:** **Dynamically fill with AI**. **Ask the end user before running:** **No**. Under **Completion**, set **After running** to **Write the response with generative AI** — the agent narrates the result instead of dumping raw tool output. **Save**.
+2. **Inputs → Fill using: Dynamically fill with AI** for **both** `Task List` and `Urgent`. **Ask the end user before running: No**. Under **Completion → After running**, set **Write the response with generative AI**. **Save**.
 3. **Overview** → **Instructions** → **Edit**, add and **Save**:
    ```
-   After the user confirms the action items, use the Post Tasks to Teams tool to post the list to Teams.
+   After the user confirms the action items, use the Post Tasks to Teams tool. Pass the confirmed list as Task List, and set Urgent to Yes if any item is due within two business days or marked high priority, otherwise No.
    ```
 
-### Step 5 — Test end to end (5 min)
-1. **Test** pane → **Start new test session** (**+**).
-2. Paste the transcript again and let it extract the action items.
-3. Reply: `Yes, post these to Teams.`
-4. If prompted to connect to Teams, select **Allow**.
-5. Open Teams in another tab, go to your channel, and confirm the action-item list was posted.
+### Step 5 — Test both paths (5 min)
+1. **Test** pane → **Start new test session** (**+**). Paste the transcript, let it extract, then reply `Yes, post these to Teams.` (Select **Allow** if prompted to connect.)
+2. Check Teams: the task list posts. Because the sample has near-term dates, the agent sets **Urgent = Yes**, so the **flag message also posts.** Open the flow's **run history** (or the **Activity** page) and see the **Condition** took the *If yes* branch.
+3. Run it again, but tell the agent the items are all low priority (or paste a transcript with far-off dates). The flag should **not** post — the *If no* branch. One flow, two behaviors: that's flow logic.
 
 ---
 
@@ -127,9 +128,4 @@ Your assistant now turns a meeting into posted tasks. **Reuse idea:** paste your
 | Check | |
 |---|---|
 | Instructions tell the agent to extract owner / task / due date and confirm first | ☐ |
-| It extracted the action items from the sample transcript | ☐ |
-| **Post Tasks to Teams** workflow built and **Ready** | ☐ |
-| Added to the assistant as a tool | ☐ |
-| A confirmed task list **posted to Teams** | ☐ |
-
-*You've built the HP Workplace Assistant end to end: it answers across sources, runs a structured intake, and turns a meeting into action.*
+| It extracted the action items from the sample transc

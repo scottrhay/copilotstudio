@@ -37,9 +37,13 @@ Today you build one agent — the **HP Workplace Assistant** — across four sho
 | Lab | You add | Skill |
 |---|---|---|
 | 1 | Create the assistant + instructions + first knowledge source; publish | Create & ground an agent |
-| 2 | A **Log IT Request** topic (name, issue, urgency + summary card) | Structured conversations |
-| 3 | **Three** knowledge sources (IT, HR, Travel) | Answer across sources, synthesize |
-| 4 | **Meeting Tasks** — extract action items from a transcript, post to Teams | Make the agent take an action |
+| 2 | A **Log IT Request** topic — entities, variables, and a branch | Structured, validated intake |
+| 3 | **Tools + triggers** — a Prompt tool that drafts a ticket, plus an event trigger | Make the agent *act*, and act on its own |
+| 4 | **A multi-step flow** — the agent drafts a ticket, then a flow logs it to Excel, emails the requester, and alerts the IT lead if urgent | Multi-step logic in a tool |
+| 5 *(optional)* | **Connected agents** — build an HR specialist and route to it | Multi-agent orchestration |
+| 4B *(optional)* | **Turn a meeting into tasks** — same flow skills, posts to Teams | Multi-step logic in a tool |
+
+*Answering across IT/HR/Travel sources is taught as a demo with an optional short practice — not a numbered lab.*
 
 ---
 
@@ -75,36 +79,24 @@ Ask the employee for their name, a short description of their IT issue, and how 
 Add an adaptive card at the end that summarizes the name, issue, and urgency that were collected.
 ```
 
-**Knowledge-source descriptions (Lab 3) — write one per source so the agent knows when to use it:**
+**Knowledge-source descriptions (knowledge demo/practice) — write one per source so the agent knows when to use it:**
 ```
 IT Support FAQ — passwords, MFA, VPN, devices, software, and logging IT tickets.
 HR & Benefits FAQ — PTO and leave, benefits enrollment, payroll, and remote work policy.
 Travel & Expense Policy — what employees can claim, limits, per diem, and the expense workflow.
 ```
 
-**Cross-source test (Lab 3):**
+**Prompt tool instructions (Lab 3) — turns a rough problem into a clean ticket:**
 ```
-I'm a new hire this week. What do I need to sort out for IT and for HR?
+Turn a user's rough description of an IT problem into a clean support ticket.
+Output: Title (one line), Category (Access, Hardware, Software, Network, Other), Summary (two sentences).
 ```
 
-**Meeting to tasks (Lab 4):**
+**Trigger instruction (Lab 3) — what the agent does when an email arrives:**
 ```
-Turn these meeting notes into action items
+When an email arrives about an IT problem, use the Draft IT Ticket tool on the email body and show the ticket. Ignore emails that aren't IT-related.
 ```
-*(then paste your notes; review the owners and due dates, and tell it to post them to Teams.)*
 
----
-
-## 6. Things that trip people up
-
-- **Indexing takes time.** After you add a file/website, it can take 10+ minutes to be ready. Empty answers usually mean "still indexing," not "broken."
-- **Right environment.** If your agent "disappears," check the environment selector (top-right) — you probably switched.
-- **Name with your initials** if you share an environment.
-- **Teams popup blocked? (Lab 4)** Click the blocked-popup icon in the address bar and allow pop-ups from `copilotstudio.microsoft.com`.
-- **One sheet for Excel** when you upload a spreadsheet as knowledge.
-
----
-
-## 7. Take it back to work
-
-Start with one agent that answers from a document your team uses constantly. Add a topic for your most common intake. Add a workflow tool only once the conversation works. That's the HP Workplace Assistant — scaled to your team.
+**Chain the flow after the ticket (Lab 4) — agent instruction:**
+```
+When a user reports an IT problem, use Draft IT Ticket to create the ticket 
