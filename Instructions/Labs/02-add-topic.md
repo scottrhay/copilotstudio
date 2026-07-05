@@ -34,7 +34,8 @@
    ```
    Add a message at the very start that says: I'll help you log your IT request — this takes about a minute.
    ```
-   Copilot adds the right node for you — no need to say "add a message node." Use **Undo** if you don't like it, then **Save**.
+   Copilot adds the message node for you — no need to say "add a message node." Use **Undo** if you don't like it, then **Save**.
+   > **Heads-up — Copilot usually drops the new node at the *end* of the topic, not the start.** "At the very start" is a hint, not a guarantee. If it lands in the wrong place, move it by hand: select the message node → click the **cut** (scissors) icon on its toolbar → scroll to the **top** of the canvas → click the **+** just under the trigger → choose **Paste** from the node menu → **Save**. Repositioning a node this way is a normal Copilot Studio skill — worth doing once so you know how.
 
 > **If urgency came out as free text** (not the three buttons): either tell Copilot `Make the urgency question multiple choice with options High, Medium, and Low`, or do it by hand — select the **urgency** question node, set **Identify** to **Multiple choice options**, and add **High**, **Medium**, and **Low** under **Options for user**. **Save**.
 
@@ -91,6 +92,4 @@ Question nodes can pull answers out of what the user *already said*.
 3. This is *slot filling*: the fewer questions a user has to re-answer, the better the intake feels. Note which questions still asked, and consider what entity types would let them pre-fill.
 
 ### Stretch B — Build a topic from blank and chain it (~12 min)
-Copilot drafted your first topic. Now build one by hand and connect the two.
-1. First, a cleanup pro move: **Topics** → **System** filter → toggle **Escalate** to **Off**. There's no human hand-off behind this agent, and fewer active topics means cleaner routing decisions.
-2. **+ Add a topic** → **From blank**. Open **Details** (**More → Details** if hidden): **Name** `IT Issue Timing`; **Model description** `Use this topic to find out when an IT issue started before logging it`. Leave the trigger as **The agent chooses** — with generative orchest
+Copilot drafted your first topic. Now build one by
