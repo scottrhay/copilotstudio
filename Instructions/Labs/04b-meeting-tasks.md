@@ -22,7 +22,7 @@
 
 ## Your turn
 
-### Step 1 — Teach it to extract action items (6 min)
+### Step 1 — Teach it to extract action items
 1. Open your agent → **Overview** tab → **Instructions** → **Edit**.
 2. Add these lines, then **Save**:
    ```
@@ -32,7 +32,7 @@
    ```
 3. In **Suggested prompts**, add one — **Title:** `Meeting to tasks` · **Prompt:** `Turn these meeting notes into action items` · **Save**.
 
-### Step 2 — Test the extraction (6 min)
+### Step 2 — Test the extraction
 1. Open the **Test** pane → **Start new test session** (**+**).
 2. Enter `Turn these meeting notes into action items`, then paste the sample transcript below (or open **`HP_Sample_Meeting_Transcript.docx`** and copy it):
 
@@ -54,7 +54,7 @@
 
 > Model output varies. If owners or dates are missed, say `Include the owner and due date for each item` and it will refine.
 
-### Step 3 — Build the "Post Tasks to Teams" flow — with logic (12 min)
+### Step 3 — Build the "Post Tasks to Teams" flow — with logic
 A good flow does more than one thing. Yours **always posts the tasks**, and **also flags leadership when a meeting has an urgent item** — a **condition**, which is what makes flows powerful.
 1. Left navigation → **Tools** → **+ New tool** → **Agent flow** tile.
 2. Confirm the **When an agent calls the flow** trigger and **Respond to the agent** action are present.
@@ -68,7 +68,7 @@ A good flow does more than one thing. Yours **always posts the tasks**, and **al
 9. Select **Respond to the agent** → **+ Add an output** → **Text** named `Result` = **Dynamic content** → the first post's **Message link**.
 10. **Save draft** → **Publish**. Confirm the tool shows **Ready**.
 
-### Step 4 — Give the tool to the assistant (3 min)
+### Step 4 — Give the tool to the assistant
 1. **Agents** → open **HP Workplace Assistant** → **Tools** tab → **+ Add a tool** → **Workflows** filter → **Post Tasks to Teams** → **Add and configure**.
 2. **Inputs → Fill using: Dynamically fill with AI** for **both** `Task List` and `Urgent`. **Ask the end user before running: No**. Under **Completion → After running**, set **Write the response with generative AI**. **Save**.
 3. **Overview** → **Instructions** → **Edit**, add and **Save**:
@@ -76,7 +76,7 @@ A good flow does more than one thing. Yours **always posts the tasks**, and **al
    After the user confirms the action items, use the Post Tasks to Teams tool. Pass the confirmed list as Task List, and set Urgent to Yes if any item is due within two business days or marked high priority, otherwise No.
    ```
 
-### Step 5 — Test both paths (5 min)
+### Step 5 — Test both paths
 1. **Test** pane → **Start new test session** (**+**). Paste the transcript, let it extract, then reply `Yes, post these to Teams.` (Select **Allow** if prompted to connect.)
 2. Check Teams: the task list posts. Because the sample has near-term dates, the agent sets **Urgent = Yes**, so the **flag message also posts.** Open the flow's **run history** (or the **Activity** page) and see the **Condition** took the *If yes* branch.
 3. Run it again, but tell the agent the items are all low priority (or paste a transcript with far-off dates). The flag should **not** post — the *If no* branch. One flow, two behaviors: that's flow logic.
@@ -87,7 +87,7 @@ A good flow does more than one thing. Yours **always posts the tasks**, and **al
 
 *Pick one — all are self-contained, optional, and safe to skip.*
 
-### Stretch A — Harden the extraction (~8 min)
+### Stretch A — Harden the extraction
 Real transcripts are messier than the sample. Make the agent defensive.
 1. **Overview** → **Instructions** → **Edit**. Add, then **Save**:
    ```
@@ -102,7 +102,7 @@ Real transcripts are messier than the sample. Make the agent defensive.
    ```
 3. Check the result: the repaint *idea* should be excluded (or flagged as not committed), and the swag task should appear with owner **UNASSIGNED** and due **2026-07-14**.
 
-### Stretch B — Retrieve data with a tool, not just post (~15 min)
+### Stretch B — Retrieve data with a tool, not just post
 So far your tool *sends*. Tools also *fetch* — the pattern behind every "look it up for me" agent.
 1. Open OneDrive (app launcher, top-left → **OneDrive**) → create an **Excel workbook** named `Operations tasks` with columns `Title`, `Priority`, `Status` and 3–4 rows (mix of High and Medium). Select the data range → **Insert → Table** → name the table `Tasks`. Close the tab.
 2. **Tools** → **+ New tool** → **Agent flow**. On the trigger, **+ Add an input** → **Text** named `Priority`.
@@ -112,7 +112,7 @@ So far your tool *sends*. Tools also *fetch* — the pattern behind every "look 
 
 *Prefer Planner? The same pattern works with **Planner → Create a task** to turn each action item into a real Planner task.*
 
-### Stretch C — Regression-test the whole assistant (~10 min)
+### Stretch C — Regression-test the whole assistant
 Your agent now has knowledge, a topic, and a tool. Build one evaluation that exercises all of it.
 1. **Evaluate** tab → new test set → add **4 manual test cases**: an IT question, an HR question, `I need to log an IT issue`, and `Turn these meeting notes into action items:` followed by two transcript lines.
 2. **Run** it, then open each case and confirm the right capability fired — knowledge for the first two, the **Log IT Request** topic for the third, extraction for the fourth.

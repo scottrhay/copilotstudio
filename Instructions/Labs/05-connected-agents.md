@@ -15,25 +15,25 @@
 
 ---
 
-## Part A — Build the specialist (10 min)
+## Part A — Build the specialist
 
-### Step 1 — Create the HR Benefits Specialist (5 min)
+### Step 1 — Create the HR Benefits Specialist
 1. **Agents** → describe-your-agent box → paste, then **Send**:
    ```
    You are the HP HR Benefits Specialist. You answer employee questions about health benefits, PTO, retirement, and open enrollment, using only your configured HR knowledge. Be concise and point people to HR for anything you can't answer.
    ```
 2. **Overview → Details → Edit:** **Name** `HR Benefits Specialist` *(add your initials if you share the environment)*; **Description** `Answers HR benefits, PTO, retirement, and open-enrollment questions.` → **Save**.
 
-### Step 2 — Ground it and publish (5 min)
+### Step 2 — Ground it and publish
 1. **Knowledge** tab → **+ Add knowledge** → **Upload file** → **`HP_HR_Benefits_FAQ.docx`**. In the upload dialog give it **Name** `HR Benefits FAQ` and **Description** `Health benefits, PTO, retirement, and open enrollment.` → **Add to agent**. Wait for **Ready**.
 2. **Publish** → **Publish**. *A connected agent must be published before another agent can route to it.*
 3. Quick check in the **Test** pane: ask `How much PTO do new hires get?` and confirm it answers from the FAQ.
 
 ---
 
-## Part B — Connect it to the front-door agent (8 min)
+## Part B — Connect it to the front-door agent
 
-### Step 3 — Add the connected agent (5 min)
+### Step 3 — Add the connected agent
 1. **Agents** → open your **HP Workplace Assistant** (the front door).
 2. Go to the **Agents** area for this agent — the **Connected agents** section *(on the **Overview**/**Build** surface, look for **Agents** or **Connected agents**; the exact label varies by tenant)*.
 3. Select **+ Add** → **Connected agent** → pick **HR Benefits Specialist** from the list of published agents.
@@ -43,7 +43,7 @@
    ```
 5. **Save**.
 
-### Step 4 — Tell the front-door agent it can delegate (3 min)
+### Step 4 — Tell the front-door agent it can delegate
 1. **Overview → Instructions → Edit**, add and **Save**:
    ```
    You can answer IT questions yourself. For HR benefits, PTO, retirement, or open enrollment, hand the question to the HR Benefits Specialist.
@@ -52,7 +52,7 @@
 
 ---
 
-## Part C — Watch the hand-off (5 min)
+## Part C — Watch the hand-off
 1. In the HP Workplace Assistant, open the **Test** pane → set **Show activity map** to **On** → **Start new test session** (**+**).
 2. Ask an **IT** question: `How do I connect to the VPN?` — it answers **itself** from the IT FAQ (the activity map shows local knowledge).
 3. Ask an **HR** question: `How many vacation days do I get?` — in the activity map, watch it **route to the HR Benefits Specialist**, which answers from *its* knowledge. One conversation, two agents.
@@ -64,10 +64,10 @@
 
 ## ⭐ Finished early? Optional stretch goals
 
-### Stretch A — Add a third specialist (~8 min)
+### Stretch A — Add a third specialist
 Repeat Parts A–B with a **Travel & Expense Specialist** grounded on **`HP_Travel_Expense_Policy.docx`**. Now the front door routes across three domains. Notice the front-door agent's own knowledge can shrink — its job is increasingly to *route*, not to answer.
 
-### Stretch B — Break the routing on purpose (~5 min)
+### Stretch B — Break the routing on purpose
 Edit the HR specialist's **description of when to use it** to be vague (e.g., `Handles employee questions`). Re-test the VPN question and watch it sometimes mis-route to HR. Restore the specific description. This shows why the routing description is the single most important field in a multi-agent build.
 
 ---

@@ -17,17 +17,17 @@
 
 ## Your turn
 
-### Step 1 — Prep the ticket tracker (4 min)
+### Step 1 — Prep the ticket tracker
 1. Download **`HP_IT_Tickets.xlsx`** and **upload it to your OneDrive** (app launcher → **OneDrive** → **Upload**).
 2. Open it and confirm the **`Tickets`** table with columns **Date, Title, Category, Urgency, Summary, Requester, Status** (one sample row is already there). Close the tab.
 
-### Step 2 — Create the flow and its inputs (6 min)
+### Step 2 — Create the flow and its inputs
 1. In your agent: left navigation → **Tools** → **+ New tool** → **Agent flow** tile.
 2. Confirm the **When an agent calls the flow** trigger and the **Respond to the agent** action are present.
 3. Select the **trigger** → **+ Add an input** → **Text** — add **five**: `Title`, `Category`, `Urgency`, `Summary`, `Requester`. **Save draft**.
 4. **Overview** tab → **Details** → **Edit**: **Flow name** `Log and Route Ticket`; **Description** `Log an IT ticket to Excel, email the requester, and alert the IT lead when the ticket is urgent.` → **Save**.
 
-### Step 3 — Action 1: log the ticket to Excel (7 min)
+### Step 3 — Action 1: log the ticket to Excel
 1. **Designer** tab → **+** after the trigger → search `Excel` → **Excel Online (Business)** → **Add a row into a table** → **Sign in** and approve.
 2. **Location:** `OneDrive for Business` · **Document Library:** `OneDrive` · **File:** browse to `HP_IT_Tickets.xlsx` · **Table:** `Tickets`.
 3. Map the columns to **Dynamic content** from the trigger:
@@ -35,13 +35,13 @@
    - **Status** → type `Open`
    - **Date** → in the field, click **fx** (expression) and enter `utcNow()` → **OK**. *(Optional — leave blank if you'd rather skip it.)*
 
-### Step 4 — Action 2: email the requester a confirmation (5 min)
+### Step 4 — Action 2: email the requester a confirmation
 1. **+** below the Excel step → search `Outlook` → **Office 365 Outlook** → **Send an email (V2)** → **Sign in** and approve.
 2. **To:** **Dynamic content** → `Requester`. *(No requester address handy in class? Type your own email so you can see it arrive.)*
 3. **Subject:** `Your IT ticket has been logged: ` then add the **Title** dynamic content.
 4. **Body:** a short confirmation — e.g. `We've logged your ticket.` then add **Category**, **Urgency**, and **Summary** dynamic content on their own lines.
 
-### Step 5 — Action 3: branch — alert the IT lead if urgent (6 min)
+### Step 5 — Action 3: branch — alert the IT lead if urgent
 1. **+** below the email step → **Control** → **Condition**.
 2. Set it: **Urgency** *(dynamic content)* **is equal to** `High`.
 3. On the **If yes** branch → **+** → **Office 365 Outlook** → **Send an email (V2)**:
@@ -50,11 +50,11 @@
    - **Body:** add **Summary** and **Requester**.
 4. Leave the **If no** branch empty. **This is the flow's logic** — routine tickets are logged and confirmed; only urgent ones escalate.
 
-### Step 6 — Respond and publish (2 min)
+### Step 6 — Respond and publish
 1. Select **Respond to the agent** → **+ Add an output** → **Text**, name `Result`, value `Ticket logged and routed.`
 2. **Save draft** → **Publish**. Confirm the tool shows **Ready**.
 
-### Step 7 — Give the flow to the agent, chained after the ticket (3 min)
+### Step 7 — Give the flow to the agent, chained after the ticket
 1. **Agents** → **HP Workplace Assistant** → **Tools** tab → **+ Add a tool** → **Workflows** filter → **Log and Route Ticket** → **Add and configure**.
 2. **Inputs → Fill using: Dynamically fill with AI** for all five. **Ask the end user before running: Yes** *(a safe default for anything that writes data and sends mail)*. Under **Completion → After running**, set **Write the response with generative AI**. **Save**.
 3. **Overview → Instructions → Edit**, add and **Save**:
@@ -62,7 +62,7 @@
    When a user reports an IT problem, use Draft IT Ticket to create the ticket and show it. After the user confirms, use Log and Route Ticket, passing the ticket's Title, Category, Urgency, and Summary (and the user's email as Requester if you have it).
    ```
 
-### Step 8 — Test the whole chain (5 min)
+### Step 8 — Test the whole chain
 1. **Test** pane → **Show activity map** On → **Start new test session** (**+**).
 2. Enter a messy, clearly urgent problem:
    ```
@@ -78,14 +78,14 @@
 
 *Pick one — all are self-contained and safe to skip.*
 
-### Stretch A — Alert to Teams instead of email (~6 min)
+### Stretch A — Alert to Teams instead of email
 On the **If yes** branch, replace (or add alongside) the alert email with **Microsoft Teams → Post message in a chat or channel** → post `⚠️ High-priority ticket: {Title}` to an IT channel. Same branch, a different destination — pick the channel your team actually watches.
 > Teams popup blocked? Click the blocked-popup icon in the address bar and allow pop-ups from `copilotstudio.microsoft.com`.
 
-### Stretch B — Read the tickets back (~12 min)
+### Stretch B — Read the tickets back
 A flow can *fetch*, not just write. Build a second flow **`Get Open Tickets`**: trigger input `Category` (Text) → **Excel Online (Business) → List rows present in a table** on `HP_IT_Tickets.xlsx` / `Tickets` → **Filter query** `Status eq 'Open'` → **Respond to the agent** with the **body/value**. Add it to the agent and test: `Show me the open network tickets`. Now your assistant both logs and reports — the two halves of a real help desk.
 
-### Stretch C — Try the alternative flow lab (~30 min)
+### Stretch C — Try the alternative flow lab
 Prefer a different scenario? **Lab 4B — Turn a meeting into tasks** teaches the same flow skills (multi-step + a condition) by extracting action items from a meeting transcript and posting them to Teams. Same muscle, different domain.
 
 ---
