@@ -82,14 +82,53 @@ Variables hold what you collected; a **Condition** lets the agent act on them.
 
 *Pick one. All are self-contained, optional, and safe to skip.*
 
-### Stretch A — Watch slot filling do your work (~5 min)
-Question nodes can pull answers out of what the user *already said*.
-1. **Test** pane → **Start new test session** (**+**). Instead of the plain trigger, enter it all in one line:
+### Stretch A — Make slot filling actually work (~7 min)
+Slot filling lets the agent pull answers out of what the user *already said* — but **only from questions that use an entity.** A plain-text question has nothing to extract from, so it always asks. That's the catch most people hit: they type everything in one line and the agent still asks for their name. Here's how to fix it and see it work.
+
+1. **The reason it doesn't "just work":** your **name** and **issue** questions are free text (Copilot drafted them that way), so there's nothing for the agent to extract. Only **urgency** uses an entity, so only urgency can pre-fill.
+2. **Give the name question an entity.** Open the **name** question node → **Identify** → choose the prebuilt **Person name** entity *(labeled "Person name" or "Name" depending on tenant)*. **Save**. Now the agent knows how to spot a name in a sentence.
+3. **Test it.** **Test** pane → **Start new test session** (**+**) → enter it all in one line:
    ```
-   I need to log a HIGH priority IT issue - my VPN will not connect
+   this is Scott and I need to log a HIGH priority IT issue
    ```
-2. Watch the flow: the urgency question should be **skipped** — the multiple-choice node picked `High` straight out of your message. Depending on entity settings, the issue may pre-fill too.
-3. This is *slot filling*: the fewer questions a user has to re-answer, the better the intake feels. Note which questions still asked, and consider what entity types would let them pre-fill.
+4. **What you should see:** the agent **skips the name question** (it extracted `Scott`) **and the urgency question** (it extracted `High`), and asks only for the **issue** — because that one is still free text with no entity. That contrast *is* the lesson: entity-backed questions slot-fill; free-text ones don't.
+5. **See it happen:** open the **Variables** panel → **Test** tab and watch `name` and `urgency` fill in before those questions would have run. To force a question to always ask even when it could pre-fill, open its node → **⋯ → Properties → Question behavior → Ask every time**.
+
+> **Reality check:** slot filling is best-effort natural-language extraction, not a guarantee — a messy sentence may still ask. Under generative orchestration the agent also fills inputs on its own. The dependable rule to teach: *if you want a field to pre-fill, back it with an entity.*
 
 ### Stretch B — Build a topic from blank and chain it (~12 min)
-Copilot drafted your first topic. Now build one by
+Copilot drafted your first topic. Now build one by hand and connect the two.
+1. First, a cleanup pro move: **Topics** → **System** filter → toggle **Escalate** to **Off**. There's no human hand-off behind this agent, and fewer active topics means cleaner routing decisions.
+2. **+ Add a topic** → **From blank**. Open **Details** (**More → Details** if hidden): **Name** `IT Issue Timing`; **Model description** `Use this topic to find out when an IT issue started before logging it`. Leave the trigger as **The agent chooses** — with generative orchestration, that description *is* the trigger.
+3. Add a **Question** node: `When did the issue start?` → under **Identify**, select **Date and time** → name the variable `IssueStart`. **Save.**
+4. Below it, add **Topic management → Go to another topic → Log IT Request**. **Save**.
+5. Test: `my laptop broke yesterday and I want to report it` — the timing topic collects the date (notice it understands "yesterday"), then hands off to your intake topic. That's topic chaining: small single-purpose topics composed into a flow.
+
+> **If nothing happens / it feels empty:** generative orchestration only routes here if the model description clearly matches. Make the description more specific (e.g., add "when a user mentions an IT problem *without* saying when it started"), **Publish**, and retest — or add a **trigger phrase** like `when did my issue start` to force the route while you test. An unrouted topic looks "empty" because the agent never entered it.
+
+### Stretch C — Generate a ticket number with Power Fx (~8 min)
+The real power-user skill: compute a value instead of asking for it. You'll stamp each request with a unique ticket ID using **Power Fx**, Copilot Studio's formula language.
+1. On the canvas, right after the last question (before the summary card), add a **Variable management → Set a variable value** node.
+2. **Set variable:** create a new one named `TicketId`.
+3. **To value:** switch the field to a **formula** (the **fx** toggle) and enter:
+   ```
+   "IT-" & Text(Now(), "yyyymmdd-hhmmss")
+   ```
+   This builds an ID like `IT-20260705-143210` from the current date and time. **Save.**
+4. Add `TicketId` to your **Adaptive Card** (or a message before it) so the user sees their ticket number: *"Your request is logged as {TicketId}."*
+5. Test the topic and confirm a unique ID appears. **Why it matters:** Power Fx lets a topic transform, format, and calculate — the same skill you'll use to shape tool inputs in Labs 3 and 4. Try another: `Upper(Trim(Topic.name))` to normalize the name, or `"Priority: " & Topic.urgency`.
+
+---
+
+## ✅ Done — and how to reuse it
+You added a structured **Log IT Request** flow to the assistant. **Reuse idea:** the same pattern — collect a few fields, confirm with a card — works for any intake your team does (access requests, facilities tickets, equipment orders).
+
+| Check | |
+|---|---|
+| **Log IT Request** topic collects name, issue, start date, urgency | ☐ |
+| Urgency uses a reusable **closed-list entity** (`IT Urgency`); start date uses the **Date** entity | ☐ |
+| A **Condition** branches on the urgency variable (High vs. all other) | ☐ |
+| **Adaptive Card** summarizes the request | ☐ |
+| Variables shared, and **both branches** tested | ☐ |
+
+*Next lab: give the assistant **tools** and a **trigger** so it can act, not just talk.*
