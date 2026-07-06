@@ -2,7 +2,7 @@
 
 **PL-7008 · Create agents in Microsoft Copilot Studio · Two-session HP delivery**
 
-Today you build one agent — the **HP Workplace Assistant** — across four short labs. Keep this beside you.
+Today you build one agent — the **HP Workplace Assistant** — across the labs. Keep this beside you.
 
 ---
 
@@ -17,7 +17,7 @@ Today you build one agent — the **HP Workplace Assistant** — across four sho
 | **HP example** | "Summarize this RFP thread" | "HP Workplace Assistant" | "Post meeting tasks to a Teams channel" |
 
 **Rule of thumb:** *Human chatting → think **agent**. System acting → think **flow**.*
-**Scope note:** this course builds **agents**. Power Automate is *out of scope* — it shows up only as a ready-made **workflow your agent calls as a tool** (Lab 4).
+**Scope note:** this course builds **agents**. Power Automate is *out of scope* (it's the contrast case — deterministic, no conversation). The flows you build in Lab 4 are **Copilot Studio agent flows**, authored right inside the agent — not Power Automate.
 
 ---
 
