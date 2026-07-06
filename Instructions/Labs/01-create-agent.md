@@ -103,4 +103,21 @@ Templates are the fastest way to start a real agent — and this one shows you a
 Your agent quietly tracks how it's doing — with one catch worth knowing.
 > **Why the Analytics tab looks empty:** it **ignores the Test pane.** Only real conversations on a **published channel** (the Demo website you just published) count, and they take about a day to aggregate. So this is *seed it now, read it tomorrow.*
 1. Open your **Demo website** (**Channels → Demo website → Open**) and have 2–3 real conversations — ask a couple of IT questions, then click **thumbs up / thumbs down** on the answers. That thumbs signal is what feeds satisfaction.
-2. In Copilot Studio, open the **Activity** tab *(**Monitor** in some te
+2. In Copilot Studio, open the **Activity** tab *(**Monitor** in some tenants)* — your demo-website session shows up here **quickly**, with the full transcript and which knowledge source it used. This is the real-time view.
+3. Open the **Analytics** tab and find where each number lives — sessions, conversation outcomes, generated-answer quality, knowledge-source use, satisfaction. **Expect zeros today**; the demo sessions and thumbs land tomorrow (quality scoring needs 10+ answers/day). Knowing the Test pane doesn't count — and where to actually look — is the point.
+
+---
+
+## ✅ Done — and how to reuse it
+You created the HP Workplace Assistant, shaped its behavior, grounded it on a real document, published it, and evaluated it. **This is a working starting point** — back at your desk you can add your team's real documents and publish it to Teams for your group.
+
+| Check | |
+|---|---|
+| Agent named **HP Workplace Assistant** with custom instructions | ☐ |
+| **IT Support FAQ** added as knowledge (Ready) | ☐ |
+| Answered an IT question in the **Test** pane | ☐ |
+| Read the **activity map** to see *how* it grounded the answer | ☐ |
+| Published to the **Demo website** | ☐ |
+| Ran an **evaluation** and reviewed the pass rate | ☐ |
+
+*Next lab: give the assistant a structured way to log an IT request.*
