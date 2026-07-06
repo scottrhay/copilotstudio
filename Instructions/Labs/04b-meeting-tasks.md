@@ -128,4 +128,9 @@ Your assistant now turns a meeting into posted tasks. **Reuse idea:** paste your
 | Check | |
 |---|---|
 | Instructions tell the agent to extract owner / task / due date and confirm first | ☐ |
-| It extracted the action items from the sample transc
+| It extracted the action items from the sample transcript | ☐ |
+| **Post Tasks to Teams** flow built with a **Condition** branch, and **Ready** | ☐ |
+| Added to the assistant as a tool (both inputs filled by AI) | ☐ |
+| The task list **posted to Teams**, and the **urgent flag** fired on the *If yes* path | ☐ |
+
+*Same flow muscle as Lab 4 — a multi-step tool with a **condition** — in a different scenario. Whichever you ran, the assistant now takes real, multi-step action. **Optional Lab 5** goes further: connect a second, specialist agent and let this one route to it.*
