@@ -69,11 +69,13 @@ Create an agent from a plain-English prompt, give it a name and instructions, ad
 4. Now ask something outside the FAQ — e.g., `How much vacation do I get?` The activity map shows the **IT Support FAQ didn't match** (that's an HR question — you'd add an HR source the same way you added this one). Seeing *why* an answer is thin is the debugging view Agent Builder doesn't give you.
 
 ### Step 5 — Publish to a demo website
-1. Select **Publish** → **Publish**.
-2. Select the **Channels** tab → **Demo website**.
-3. **Welcome message:** `Ask me about IT, HR, or travel and expenses.`
-4. **Conversation starters:** add `How do I reset my password?` and `How do I request a new laptop?` — real buttons users can press instead of facing a blank box. → **Save**.
-5. Select **Open demo website**, press a conversation starter, and confirm it answers.
+1. **Turn off authentication first** — the demo website won't open otherwise. Go to **Settings** (top bar) → **Security** → **Authentication** → select **No authentication** → **Save**. *(Fine for a class demo; production agents use real sign-in.)*
+2. Select **Publish** → **Publish**. *(Auth changes only take effect after you publish.)*
+3. Select the **Channels** tab → **Demo website**.
+4. **Welcome message:** `Ask me about IT, HR, or travel and expenses.`
+5. **Conversation starters:** add `How do I reset my password?` and `How do I request a new laptop?` — real buttons users can press instead of facing a blank box. → **Save**.
+6. Select **Open demo website**, press a conversation starter, and confirm it answers.
+> **Demo site still asks you to sign in or won't load?** Confirm **Authentication = No authentication** and that you **re-published** after changing it.
 
 ### Step 6 — Evaluate it
 Don't judge an agent by one lucky question. Copilot Studio can test it *for* you — it generates questions from your knowledge and scores the answers automatically.
