@@ -86,9 +86,11 @@ Don't judge an agent by one lucky question. Copilot Studio can test it *for* you
 
 ---
 
-## ⭐ Finished early? Optional stretch goal
+## ⭐ Finished early? Optional stretch goals
 
-### Stretch — Explore a template and compare orchestration styles
+*Pick one — both are self-contained and safe to skip.*
+
+### Stretch A — Explore a template and compare orchestration styles
 Templates are the fastest way to start a real agent — and this one shows you a second orchestration style.
 1. **Agents** → under **Start with an agent template**, select **Safe Travels** → **Create**.
 2. On **Overview**, read its instructions; on **Knowledge**, note it grounds on a *public website* — a different knowledge source type from the file you uploaded.
@@ -97,18 +99,8 @@ Templates are the fastest way to start a real agent — and this one shows you a
 5. In the **Test** pane, toggle **Track between topics** to **On**. Say `Hello`, then ask `What is Copilot Studio?` — watch the **Greeting** topic fire, then the **Fallback** topic catch the question it can't answer.
 6. When done, delete the template agent (**Agents** list → **…** → **Delete**) so the shared environment stays clean.
 
----
-
-## ✅ Done — and how to reuse it
-You created the HP Workplace Assistant, shaped its behavior, grounded it on a real document, published it, and evaluated it. **This is a working starting point** — back at your desk you can add your team's real documents and publish it to Teams for your group.
-
-| Check | |
-|---|---|
-| Agent named **HP Workplace Assistant** with custom instructions | ☐ |
-| **IT Support FAQ** added as knowledge (Ready) | ☐ |
-| Answered an IT question in the **Test** pane | ☐ |
-| Read the **activity map** to see *how* it grounded the answer | ☐ |
-| Published to the **Demo website** | ☐ |
-| Ran an **evaluation** and reviewed the pass rate | ☐ |
-
-*Next lab: give the assistant a structured way to log an IT request.*
+### Stretch B — See it being used: analytics & feedback
+Your agent quietly tracks how it's doing — with one catch worth knowing.
+> **Why the Analytics tab looks empty:** it **ignores the Test pane.** Only real conversations on a **published channel** (the Demo website you just published) count, and they take about a day to aggregate. So this is *seed it now, read it tomorrow.*
+1. Open your **Demo website** (**Channels → Demo website → Open**) and have 2–3 real conversations — ask a couple of IT questions, then click **thumbs up / thumbs down** on the answers. That thumbs signal is what feeds satisfaction.
+2. In Copilot Studio, open the **Activity** tab *(**Monitor** in some te
