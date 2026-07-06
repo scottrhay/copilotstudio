@@ -162,4 +162,9 @@ Use the HR Benefits Specialist for any question about health benefits, PTO, vaca
 
 **Front-door delegation instruction** *(on the HP Workplace Assistant, then Publish)*
 ```
-You can answer IT questions yourself. For HR benefits, PTO, retirement, or open enrollment, hand the question to t
+You can answer IT questions yourself. For HR benefits, PTO, retirement, or open enrollment, hand the question to the HR Benefits Specialist.
+```
+
+---
+
+*Every prompt here is used live in the labs. Back at your desk, swap "HP Workplace Assistant" and the IT/HR/Travel content for your own team's documents and workflows — the structure holds.*

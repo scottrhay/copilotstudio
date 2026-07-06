@@ -99,4 +99,33 @@ When an email arrives about an IT problem, use the Draft IT Ticket tool on the e
 
 **Chain the flow after the ticket (Lab 4) — agent instruction:**
 ```
-When a user reports an IT problem, use Draft IT Ticket to create the ticket 
+When a user reports an IT problem, use Draft IT Ticket to create the ticket and show it. After the user confirms, use Log and Route Ticket, passing the ticket's Title, Category, Urgency, and Summary.
+```
+*(the flow logs the ticket to your Excel tracker, emails the requester, and — only if it's High urgency — alerts the IT lead.)*
+
+**Optional (Lab 4B) — meeting to tasks:**
+```
+Turn these meeting notes into action items
+```
+*(then paste your notes; review the owners and due dates, confirm, and the flow posts them to Teams — and flags leadership if anything is urgent.)*
+
+**Connect a specialist (Lab 5, optional) — the routing description the orchestrator reads:**
+```
+Use the HR Benefits Specialist for questions about health benefits, PTO, vacation, retirement, or open enrollment. Do not use it for IT problems.
+```
+
+---
+
+## 6. Things that trip people up
+
+- **Indexing takes time.** After you add a file/website, it can take 10+ minutes to be ready. Empty answers usually mean "still indexing," not "broken."
+- **Right environment.** If your agent "disappears," check the environment selector (top-right) — you probably switched.
+- **Name with your initials** if you share an environment.
+- **Teams popup blocked? (Lab 4)** Click the blocked-popup icon in the address bar and allow pop-ups from `copilotstudio.microsoft.com`.
+- **One sheet for Excel** when you upload a spreadsheet as knowledge.
+
+---
+
+## 7. Take it back to work
+
+Start with one agent that answers from a document your team uses constantly. Add a topic for your most common intake. Add a workflow tool only once the conversation works. That's the HP Workplace Assistant — scaled to your team.
