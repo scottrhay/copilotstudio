@@ -9,7 +9,7 @@
 ## Quick start
 - Open your **HP Workplace Assistant** from Labs 1–3 — it should already **draft clean tickets from its instructions** (Lab 3, Part A). *If you're starting fresh:* create the agent, then add the drafting instruction first (it's in Lab 3's Part A).
 - Download **`HP_IT_Tickets.xlsx`** from the class files and **upload it to your OneDrive** — the flow logs rows into it. It already contains a table named **`Tickets`**.
-- You'll use the **Excel Online (Business)** and **Office 365 Outlook** connectors — sign in when prompted.
+- You'll use the **Excel Online (Business)** and **Office 365 Outlook** connectors — sign in when prompted. *(If a step keeps asking you to sign in, the connection dropped — reconnect / re-authenticate that connector and retry.)*
 
 > **Terminology:** Microsoft is renaming *agent flows* to *Copilot Studio workflows*. You'll see both terms — they're the same thing.
 
@@ -33,11 +33,11 @@
 3. Map the columns to **Dynamic content** from the trigger:
    - **Title** → `Title` · **Category** → `Category` · **Urgency** → `Urgency` · **Summary** → `Summary` · **Requester** → `Requester`
    - **Status** → type `Open`
-   - **Date** → in the field, click **fx** (expression) and enter `utcNow()` → **OK**. *(Optional — leave blank if you'd rather skip it.)*
+   - **Date** → click **into the Date field** so the **fx** (expression) icon appears, select it, enter `utcNow()` → **OK**. *(The fx/expression option only shows once you click **into** the field. Optional — leave Date blank if you'd rather skip it.)*
 
 ### Step 4 — Action 2: email the requester a confirmation
 1. **+** below the Excel step → search `Outlook` → **Office 365 Outlook** → **Send an email (V2)** → **Sign in** and approve.
-2. **To:** click **fx** (expression) and wrap the requester in `trim(...)` — e.g. `trim(triggerBody()?['Requester'])`. *(The AI sometimes appends a newline to the email address; `trim` strips it. Without it the send fails with a generic **SystemError**. No requester handy in class? Use your own email.)*
+2. **To:** click **into the To field** so the **fx** (expression) icon appears, select it, and enter `trim(triggerBody()?['Requester'])`. *(Wrap the requester in `trim()` — the AI sometimes appends a newline to the address, and without `trim` the send fails with a generic **SystemError**. The fx icon only shows once you click into the field. No requester handy in class? Use your own email.)*
 3. **Subject:** `Your IT ticket has been logged: ` then add the **Title** dynamic content.
 4. **Body:** a short confirmation — e.g. `We've logged your ticket.` then add **Category**, **Urgency**, and **Summary** dynamic content on their own lines.
 
@@ -59,7 +59,7 @@
 2. **Inputs → Fill using: Dynamically fill with AI** for all five. Expand **Additional details** to find **Ask the end user before running** → set it to **Yes** *(a safe default for anything that writes data and sends mail)*. Under **Completion → After running**, set **Write the response with generative AI**. **Save**.
 3. **Overview → Instructions → Edit**, add and **Save**:
    ```
-   When a user reports an IT problem, draft a clean ticket (Title, Category, Summary) and show it. After the user confirms, use Log and Route Ticket, passing the ticket's Title, Category, Urgency, and Summary (and the user's email as Requester if you have it).
+   When a user reports an IT problem, draft a clean ticket (Title, Category, Summary) and show it to the user. Before running Log and Route Ticket, show that ticket summary and ask the user to confirm. On confirmation, use Log and Route Ticket, passing the ticket's Title, Category, Urgency, and Summary (and the user's email as Requester if you have it).
    ```
 
 ### Step 8 — Test the whole chain
