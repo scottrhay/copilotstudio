@@ -49,12 +49,9 @@ Create an agent from a plain-English prompt, give it a name and instructions, ad
 
 ### Step 3 — Add a knowledge source
 1. Select the **Knowledge** tab → **+ Add knowledge** → **Upload file**.
-2. Browse to **`HP_IT_Support_FAQ.docx`** (drag-and-drop, or browse to it).
-3. **In the upload dialog, before you add it,** give it a clear **Name** and a **detailed Description** — the description is what the agent reads to decide when to use this source, so be specific:
-   - **Name:** `IT Support FAQ`
-   - **Description:** `Answers about passwords, MFA, VPN, devices, software, and how to log IT tickets.`
-4. Select **Add to agent**. *(The description isn't shown on the Knowledge list afterward — to change it later, use the source's **⋮ → Edit**.)*
-5. The file shows **Indexing** → **Ready**. *Indexing can take a few minutes — keep going and test at the end.*
+2. In the **Upload files** dialog, drag in **`HP_IT_Support_FAQ.docx`** (or **browse your device**).
+3. Select **Add to agent**. *(A device upload has **no Name or Description fields** — the agent uses the **filename** as the label and semantically searches the file's **content**, so a clear filename like `HP_IT_Support_FAQ` is the routing hint. Want a description instead? Add the doc via **SharePoint** or a **website**, which have a Name + Description dialog.)*
+4. The file shows **Indexing → Ready**. *Indexing can take a few minutes — keep going and test at the end.*
 
 ### Step 4 — Test it, and watch *how* it answers
 1. Open the **Test** pane (top-right). Select the ellipsis (**…**) next to **{x}** and set **Show activity map** to **On**.

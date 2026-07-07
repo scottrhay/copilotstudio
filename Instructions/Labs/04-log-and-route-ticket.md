@@ -7,7 +7,7 @@
 > **Lab Scenario.** In Lab 3 your agent *drafts* a clean IT ticket. Drafting isn't doing. A **flow** is how an agent does **several things in one run** — that's the whole point of a flow, not a single button. You'll build a **Log and Route Ticket** flow that (1) **logs the ticket to an Excel tracker**, (2) **emails the requester a confirmation**, and (3) **branches** — if the ticket is High urgency, it *also* alerts the IT lead. One call from the agent, three actions, real logic. This is the capstone of the IT-support assistant you've built since Lab 1.
 
 ## Quick start
-- Open your **HP Workplace Assistant** from Labs 1–3 — it should already have the **Draft IT Ticket** tool (Lab 3). *If you're starting fresh:* create the agent, then add the Draft IT Ticket Prompt tool first (the prompt is in Lab 3's Step 1).
+- Open your **HP Workplace Assistant** from Labs 1–3 — it should already **draft clean tickets from its instructions** (Lab 3, Part A). *If you're starting fresh:* create the agent, then add the drafting instruction first (it's in Lab 3's Part A).
 - Download **`HP_IT_Tickets.xlsx`** from the class files and **upload it to your OneDrive** — the flow logs rows into it. It already contains a table named **`Tickets`**.
 - You'll use the **Excel Online (Business)** and **Office 365 Outlook** connectors — sign in when prompted.
 
@@ -59,7 +59,7 @@
 2. **Inputs → Fill using: Dynamically fill with AI** for all five. Expand **Additional details** to find **Ask the end user before running** → set it to **Yes** *(a safe default for anything that writes data and sends mail)*. Under **Completion → After running**, set **Write the response with generative AI**. **Save**.
 3. **Overview → Instructions → Edit**, add and **Save**:
    ```
-   When a user reports an IT problem, use Draft IT Ticket to create the ticket and show it. After the user confirms, use Log and Route Ticket, passing the ticket's Title, Category, Urgency, and Summary (and the user's email as Requester if you have it).
+   When a user reports an IT problem, draft a clean ticket (Title, Category, Summary) and show it. After the user confirms, use Log and Route Ticket, passing the ticket's Title, Category, Urgency, and Summary (and the user's email as Requester if you have it).
    ```
 
 ### Step 8 — Test the whole chain
@@ -70,7 +70,7 @@
    ```
 3. The agent **drafts the ticket** (Draft IT Ticket), shows it, and asks you to confirm. Reply `Yes, log it.`
 4. Confirm all three actions happened: a **new row** in `HP_IT_Tickets.xlsx`, a **confirmation email**, and — because this one is urgent — the **IT-lead alert email**.
-5. Run it again with a low-urgency issue (`my mouse is running low on battery, no rush. My email is your.name@hp.com`). It logs and confirms, but **no alert fires** — the *If no* path. In the **activity map**, watch **two tools fire in sequence**: the Prompt tool drafts, then the flow logs and routes. That chain — reason, then act in multiple steps — is what an agent with tools and a flow can do.
+5. Run it again with a low-urgency issue (`my mouse is running low on battery, no rush. My email is your.name@hp.com`). It logs and confirms, but **no alert fires** — the *If no* path. In the **activity map**, watch it happen in sequence: the agent **drafts** the ticket from its instructions, then calls the **flow** to log and route it. That chain — reason, then act in multiple steps — is what an agent with a flow can do.
 
 ---
 
