@@ -37,7 +37,7 @@
 
 ### Step 4 — Action 2: email the requester a confirmation
 1. **+** below the Excel step → search `Outlook` → **Office 365 Outlook** → **Send an email (V2)** → **Sign in** and approve.
-2. **To:** **Dynamic content** → `Requester`. *(No requester address handy in class? Type your own email so you can see it arrive.)*
+2. **To:** click **fx** (expression) and wrap the requester in `trim(...)` — e.g. `trim(triggerBody()?['Requester'])`. *(The AI sometimes appends a newline to the email address; `trim` strips it. Without it the send fails with a generic **SystemError**. No requester handy in class? Use your own email.)*
 3. **Subject:** `Your IT ticket has been logged: ` then add the **Title** dynamic content.
 4. **Body:** a short confirmation — e.g. `We've logged your ticket.` then add **Category**, **Urgency**, and **Summary** dynamic content on their own lines.
 
@@ -56,7 +56,7 @@
 
 ### Step 7 — Give the flow to the agent, chained after the ticket
 1. **Agents** → **HP Workplace Assistant** → **Tools** tab → **+ Add a tool** → **Workflows** filter → **Log and Route Ticket** → **Add and configure**.
-2. **Inputs → Fill using: Dynamically fill with AI** for all five. **Ask the end user before running: Yes** *(a safe default for anything that writes data and sends mail)*. Under **Completion → After running**, set **Write the response with generative AI**. **Save**.
+2. **Inputs → Fill using: Dynamically fill with AI** for all five. Expand **Additional details** to find **Ask the end user before running** → set it to **Yes** *(a safe default for anything that writes data and sends mail)*. Under **Completion → After running**, set **Write the response with generative AI**. **Save**.
 3. **Overview → Instructions → Edit**, add and **Save**:
    ```
    When a user reports an IT problem, use Draft IT Ticket to create the ticket and show it. After the user confirms, use Log and Route Ticket, passing the ticket's Title, Category, Urgency, and Summary (and the user's email as Requester if you have it).
@@ -64,13 +64,13 @@
 
 ### Step 8 — Test the whole chain
 1. **Test** pane → **Show activity map** On → **Start new test session** (**+**).
-2. Enter a messy, clearly urgent problem:
+2. Enter a messy, clearly urgent problem — **include your email so the flow has a requester to confirm to**:
    ```
-   my laptop won't join the wifi and I have a client demo in an hour
+   my laptop won't join the wifi and I have a client demo in an hour. My email is your.name@hp.com
    ```
 3. The agent **drafts the ticket** (Draft IT Ticket), shows it, and asks you to confirm. Reply `Yes, log it.`
 4. Confirm all three actions happened: a **new row** in `HP_IT_Tickets.xlsx`, a **confirmation email**, and — because this one is urgent — the **IT-lead alert email**.
-5. Run it again with a low-urgency issue (`my mouse is running low on battery, no rush`). It logs and confirms, but **no alert fires** — the *If no* path. In the **activity map**, watch **two tools fire in sequence**: the Prompt tool drafts, then the flow logs and routes. That chain — reason, then act in multiple steps — is what an agent with tools and a flow can do.
+5. Run it again with a low-urgency issue (`my mouse is running low on battery, no rush. My email is your.name@hp.com`). It logs and confirms, but **no alert fires** — the *If no* path. In the **activity map**, watch **two tools fire in sequence**: the Prompt tool drafts, then the flow logs and routes. That chain — reason, then act in multiple steps — is what an agent with tools and a flow can do.
 
 ---
 
